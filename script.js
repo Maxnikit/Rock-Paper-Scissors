@@ -43,7 +43,7 @@ function playRound(playerSelection, computerSelection) {
     return "Error. You have to select either Rock, paper or scissors for this game to work properly.";
 }
 function game() {
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 100; i++) {
     let playerSelection = prompt(
       "Rock, paper or scissors? Choose wisely!",
       "Rock"
@@ -55,12 +55,12 @@ function game() {
 
     console.log(playerWonRound);
     console.log(computerWonRound);
-  }
-  if (playerWonRound > computerWonRound) {
-    alert("Congratulations! You won!!!");
-  } else if (playerWonRound < computerWonRound) {
-    alert("You lost. Better luck next time!");
-  } else {
-    alert("Draw! Good game! Wanna try again?");
+    if (playerWonRound === 5) {
+      alert("Congratulations! You won!!!");
+      break;
+    } else if (computerWonRound === 5) {
+      alert("You lost. Better luck next time!");
+      break;
+    }
   }
 }
