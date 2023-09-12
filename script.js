@@ -1,3 +1,5 @@
+let playerWonRound = 0;
+let computerWonRound = 0;
 function getComputerChoice() {
   let moves = ["Rock", "Paper", "Scissors"];
   return moves[Math.floor(Math.random() * moves.length)];
@@ -9,28 +11,56 @@ function playRound(playerSelection, computerSelection) {
     if (computerSelection === "Rock") {
       return "Draw.";
     } else if (computerSelection === "Paper") {
-      return "You lose! Paper beats rock.";
+      computerWonRound += 1;
+      return "Round lost! Paper beats rock.";
     } else if (computerSelection === "Scissors") {
-      return "You win! Rock beats scissors.";
+      playerWonRound += 1;
+      return "Round won! Rock beats scissors.";
     } else return "error";
   }
   if (playerSelection === "Paper") {
     if (computerSelection === "Rock") {
-      return "You win! Paper beats Rock.";
+      playerWonRound += 1;
+      return "Round won! Paper beats Rock.";
     } else if (computerSelection === "Paper") {
       return "Draw.";
     } else if (computerSelection === "Scissors") {
-      return "You lose! Scissors beats paper.";
+      computerWonRound += 1;
+      return "Round lost! Scissors beats paper.";
     } else return "error";
   }
   if (playerSelection === "Scissors") {
     if (computerSelection === "Rock") {
-      return "You lose! Rock beats scissors";
+      computerWonRound += 1;
+      return "Round lost! Rock beats scissors";
     } else if (computerSelection === "Paper") {
-      return "You win! Scissors beats paper.";
+      playerWonRound += 1;
+      return "Round won! Scissors beats paper.";
     } else if (computerSelection === "Scissors") {
       return "Draw.";
     } else return "error";
+  } else
+    return "Error. You have to select either Rock, paper or scissors for this game to work properly.";
+}
+function game() {
+  for (let i = 0; i < 5; i++) {
+    let playerSelection = prompt(
+      "Rock, paper or scissors? Choose wisely!",
+      "Rock"
+    );
+    console.log(`Player chose ${playerSelection}.`);
+    let computerSelection = getComputerChoice();
+    console.log(`Computer chose ${computerSelection}.`);
+    alert(playRound(playerSelection, computerSelection));
+
+    console.log(playerWonRound);
+    console.log(computerWonRound);
+  }
+  if (playerWonRound > computerWonRound) {
+    alert("Congratulations! You won!!!");
+  } else if (playerWonRound < computerWonRound) {
+    alert("You lost. Better luck next time!");
+  } else {
+    alert("Draw! Good game! Wanna try again?");
   }
 }
-// playerSelection.localeCompare(moves)
