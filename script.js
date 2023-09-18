@@ -5,8 +5,8 @@ function getComputerChoice() {
   return moves[Math.floor(Math.random() * moves.length)];
 }
 function playRound(playerSelection, computerSelection) {
-  playerSelection =
-    playerSelection[0].toUpperCase() + playerSelection.toLowerCase().slice(1);
+  // playerSelection =
+  //   playerSelection[0].toUpperCase() + playerSelection.toLowerCase().slice(1);
   if (playerSelection === "Rock") {
     if (computerSelection === "Rock") {
       return "Draw.";
@@ -42,25 +42,73 @@ function playRound(playerSelection, computerSelection) {
   } else
     return "Error. You have to select either Rock, paper or scissors for this game to work properly.";
 }
-function game() {
-  for (let i = 0; i < 100; i++) {
-    let playerSelection = prompt(
-      "Rock, paper or scissors? Choose wisely!",
-      "Rock"
-    );
-    console.log(`Player chose ${playerSelection}.`);
-    let computerSelection = getComputerChoice();
-    console.log(`Computer chose ${computerSelection}.`);
-    alert(playRound(playerSelection, computerSelection));
+// function game() {
+//   for (let i = 0; i < 5; i++) {
+//     let playerSelection = prompt();
+//     console.log(`Player chose ${playerSelection}.`);
+//     let computerSelection = getComputerChoice();
+//     console.log(`Computer chose ${computerSelection}.`);
+//     alert(playRound(playerSelection, computerSelection));
 
-    console.log(playerWonRound);
-    console.log(computerWonRound);
+//     console.log(playerWonRound);
+//     console.log(computerWonRound);
+//     if (playerWonRound === 5) {
+//       alert("Congratulations! You won!!!");
+//       break;
+//     } else if (computerWonRound === 5) {
+//       alert("You lost. Better luck next time!");
+//       break;
+//     }
+//   }
+// }
+const container = document.getElementById("container");
+const buttons = Array.from(document.getElementsByClassName("moveButton"));
+const matchResult = document.createElement("div");
+const restartButton = document.createElement("button");
+restartButton.textContent = "Restart?";
+
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    let playerSelection = "";
+    playerSelection = button.textContent;
+    const userMove = document.getElementById("userMove");
+    userMove.textContent = "Your move: " + `${playerSelection}`;
+    let computerSelection = getComputerChoice();
+    const computerMove = document.getElementById("computerMove");
+    computerMove.textContent = "Enemy move: " + `${computerSelection}`;
+    const Result = document.getElementById("Result");
+    Result.textContent = `${playRound(playerSelection, computerSelection)}`;
+
+    const Score = document.getElementById("Score");
+    Score.textContent =
+      "Score:" + `${playerWonRound}` + "vs" + `${computerWonRound}`;
+
     if (playerWonRound === 5) {
-      alert("Congratulations! You won!!!");
-      break;
+      matchFinish();
+      matchResult.textContent = "Congratulations! You won!!!";
     } else if (computerWonRound === 5) {
-      alert("You lost. Better luck next time!");
-      break;
+      matchFinish();
+      matchResult.textContent = "You lost. Better luck next time!";
     }
-  }
+  });
+});
+function matchFinish() {
+  container.appendChild(matchResult);
+  container.appendChild(restartButton);
+  buttons.forEach((button) => {
+    button.style.display = "none";
+  });
+  restartButton.addEventListener("click", () => {
+    console.log("check");
+    playerWonRound = 0;
+    computerWonRound = 0;
+    Score.textContent = "Score:";
+    container.removeChild(matchResult);
+    container.removeChild(restartButton);
+    buttons.forEach((button) => {
+      button.style.display = "inline";
+    });
+
+    Result.textContent = "Choose your move!";
+  });
 }
