@@ -5,8 +5,6 @@ function getComputerChoice() {
   return moves[Math.floor(Math.random() * moves.length)];
 }
 function playRound(playerSelection, computerSelection) {
-  // playerSelection =
-  //   playerSelection[0].toUpperCase() + playerSelection.toLowerCase().slice(1);
   if (playerSelection === "Rock") {
     if (computerSelection === "Rock") {
       return "Draw.";
@@ -42,25 +40,6 @@ function playRound(playerSelection, computerSelection) {
   } else
     return "Error. You have to select either Rock, paper or scissors for this game to work properly.";
 }
-// function game() {
-//   for (let i = 0; i < 5; i++) {
-//     let playerSelection = prompt();
-//     console.log(`Player chose ${playerSelection}.`);
-//     let computerSelection = getComputerChoice();
-//     console.log(`Computer chose ${computerSelection}.`);
-//     alert(playRound(playerSelection, computerSelection));
-
-//     console.log(playerWonRound);
-//     console.log(computerWonRound);
-//     if (playerWonRound === 5) {
-//       alert("Congratulations! You won!!!");
-//       break;
-//     } else if (computerWonRound === 5) {
-//       alert("You lost. Better luck next time!");
-//       break;
-//     }
-//   }
-// }
 const container = document.getElementById("container");
 const buttons = Array.from(document.getElementsByClassName("moveButton"));
 const matchResult = document.createElement("div");
